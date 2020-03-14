@@ -1,0 +1,30 @@
+enable
+configure terminal
+hostname RT-01
+enable secret RAMON*enable
+banner motd "ACESSO APENAS PARA PESSOAS AUTORIZADAS!"
+username RAMON privilege 15 secret RAMON*user
+ip domain-name 1rede.local
+crypto key generate rsa general-keys modulus 1024
+line console 0
+password RAMON*console
+login local
+exit
+line vty 0 15 
+password RAMON*vty 
+login local
+transpot input ssh
+exit
+interface gigabitEthernet 0/0
+ip address 192.168.0.1 255.255.0.0
+no shutdown
+description INTERFACE DE GERENCIAMENDA DA REDE 1
+exit
+interface gigabitEthernet 0/1
+ip address 172.16.0.1 255.255.0.0
+no shutdown
+description INTERFACE DE GERENCIAMENDA DA REDE 1
+exit
+service password-encryption
+end
+wr
