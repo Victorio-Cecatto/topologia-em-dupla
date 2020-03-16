@@ -1,0 +1,23 @@
+enable
+configure terminal
+hostname SW-01
+enable secret VICTORIO*enable	
+line console 0
+password VICTORIO*console
+login
+exit
+line vty 0 15
+password VICTORIO*vty
+login
+transport input ssh
+exit		
+interface vlan 1
+ip address 192.168.0.254 255.255.255.0
+no shutdown
+exit	
+banner motd "APENAS PARA USUARIOS PERMITIDOS"
+ip domain-name 1rede.local
+crypto key generate rsa general-keys modulus 1024
+service password-encryption
+end
+wr
